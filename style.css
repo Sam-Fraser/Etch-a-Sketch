@@ -51,3 +51,9 @@ header {
     width: 720px;
     height: 720px;
 }
+
+.active {
+    border: 1px solid #d4b449;
+    box-shadow: 0 0 5px rgb(221, 126, 18);
+    background-color: rgb(247, 247, 247);
+}

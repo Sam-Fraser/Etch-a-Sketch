@@ -23,28 +23,28 @@ function activateButtons() {
     const clearGrid = document.querySelector("#clearGrid");
 
     blackMarker.addEventListener('click', (e) => {
-        e.target.classList.add('active');
+        e.target.classList.toggle('active');
         rainbowMarker.classList.remove('active');
         shadingMarker.classList.remove('active');
         eraser.classList.remove('active');
     });
 
     rainbowMarker.addEventListener('click', (e) => {
-        e.target.classList.add('active');
+        e.target.classList.toggle('active');
         blackMarker.classList.remove('active');
         shadingMarker.classList.remove('active');
         eraser.classList.remove('active');
     });
 
     shadingMarker.addEventListener('click', (e) => {
-        e.target.classList.add('active');
+        e.target.classList.toggle('active');
         blackMarker.classList.remove('active');
         rainbowMarker.classList.remove('active');
         eraser.classList.remove('active');
     });
 
     eraser.addEventListener('click', (e) => {
-        e.target.classList.add('active');
+        e.target.classList.toggle('active');
         blackMarker.classList.remove('active');
         shadingMarker.classList.remove('active');
         rainbowMarker.classList.remove('active');
@@ -113,7 +113,6 @@ function drawShading(e) {
 
 function resetGrid() {
     gridSize = Number(prompt("How large do you want your drawing surface to be?", "Enter a number between 16 and 64"));
-    console.log(gridSize);
     if (Number.isNaN(gridSize) || gridSize > 64 || gridSize < 16) {
         resetGrid();
     } else {
