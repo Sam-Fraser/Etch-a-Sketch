@@ -9,14 +9,68 @@ function createPixelGrid() {
         for (let j = 1; j <= gridSize; j++) {
             let pxl = document.createElement('div');
             pxl.style.cssText = "grid-column: " + j + " / span 1; grid-row: " + i + " / span 1; background-color: rgb(255,255,255);";
-            pxl.addEventListener('mouseenter', drawShading);
+            pxl.addEventListener('mouseenter', draw);
             container.appendChild(pxl);
         }
     }
 }
 
-function draw() {
+function activateButtons() {
+    const blackMarker = document.querySelector("#blackMarker");
+    const rainbowMarker = document.querySelector("#rainbowMarker");
+    const shadingMarker = document.querySelector("#shadingMarker");
+    const eraser = document.querySelector("#eraser");
+    const clearGrid = document.querySelector("#clearGrid");
 
+    blackMarker.addEventListener('click', (e) => {
+        e.target.classList.add('active');
+        rainbowMarker.classList.remove('active');
+        shadingMarker.classList.remove('active');
+        eraser.classList.remove('active');
+    });
+
+    rainbowMarker.addEventListener('click', (e) => {
+        e.target.classList.add('active');
+        blackMarker.classList.remove('active');
+        shadingMarker.classList.remove('active');
+        eraser.classList.remove('active');
+    });
+
+    shadingMarker.addEventListener('click', (e) => {
+        e.target.classList.add('active');
+        blackMarker.classList.remove('active');
+        rainbowMarker.classList.remove('active');
+        eraser.classList.remove('active');
+    });
+
+    eraser.addEventListener('click', (e) => {
+        e.target.classList.add('active');
+        blackMarker.classList.remove('active');
+        shadingMarker.classList.remove('active');
+        rainbowMarker.classList.remove('active');
+    });
+
+    clearGrid.addEventListener('click', (e) => {
+        resetGrid();
+        blackMarker.classList.remove('active');
+        shadingMarker.classList.remove('active');
+        rainbowMarker.classList.remove('active');
+        eraser.classList.remove('active');
+    });
+}
+
+function draw(e) {
+    if (blackMarker.getAttribute('class').includes('active')) {
+        drawBlack(e);
+    } else if (rainbowMarker.getAttribute('class').includes('active')) {
+        drawRainbow(e);
+    } else if (shadingMarker.getAttribute('class').includes('active')) {
+        drawShading(e);
+    } else if (eraser.getAttribute('class').includes('active')) {
+        drawWhite(e);
+    } else {
+
+    }
 }
 
 function drawBlack(e) {
@@ -57,6 +111,16 @@ function drawShading(e) {
     e.target.style.backgroundColor = `rgb(${newRed},${newGreen},${newBlue})`;
 }
 
+function resetGrid() {
+    gridSize = Number(prompt("How large do you want your drawing surface to be?", "Enter a number between 16 and 64"));
+    console.log(gridSize);
+    if (Number.isNaN(gridSize) || gridSize > 64 || gridSize < 16) {
+        resetGrid();
+    } else {
+        createPixelGrid();
+    }
+}
 
 
+activateButtons();
 createPixelGrid();
